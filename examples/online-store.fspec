@@ -1,0 +1,27 @@
+Resources:
+  OnlineStore:
+    Type: DataSource
+    Outputs:
+      - Name: FinalOrders
+        DataType: Order
+
+  ConfirmationEmails:
+    Type: DataProcessor
+    Inputs:
+      - Source: OnlineStore.FinalOrders
+    Outputs:
+      - Name: ThirdPartyEmailSender
+        DataType: Email
+
+  RewardsProgram:
+    Type: DataProcessor
+    Inputs:
+      - Source: OnlineStore.FinalOrders
+    Outputs:
+      - Name: LoyaltyProgram
+        DataType: EarnedPoints
+
+  DataWarehouse:
+    Type: DataStorage
+    Inputs:
+      - Source: OnlineStore.FinalOrders
